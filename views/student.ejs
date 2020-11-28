@@ -1,0 +1,42 @@
+<%- include("partials/nav", {user: user}) %>
+<div class="row mt-5">
+    <div class="col-md-6 m-auto">
+        <div class="card card-body">
+        <h1 class="text-center mb-3">Student Details</h1>
+            <form action="/student/show/<%= student.s_id%>?_method=PUT" method="POST">
+            <div class="input-group form-group">
+                <div class="input-group-prepend">
+                <span class="input-group-text">Name</span>
+                </div>
+                <input type="text" name="s_name" value="<%= student.s_name %>"aria-label="First name" class="form-control">
+            </div>
+            <div class="input-group mb-3 form-group">
+                <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Roll No:</span>
+                </div>
+                <input type="text" name="s_id" class="form-control" value="<%= student.s_id %>" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+            </div>
+            <div class="input-group mb-3 form-group">
+                <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Age</span>
+                </div>
+                <input type="number" name="s_age" class="form-control" value="<%= student.s_age %>" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+            </div>
+            <div class="input-group mb-3 form-group">
+                <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Department:</span>
+                </div>
+                <input type="text" name="s_department" value="<%= student.s_department %>" readonly="true"class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+            </div>
+            <div class="input-group mb-3 form-group">
+                <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Gender:</span>
+                </div>
+                <input type="text" name="s_gender" value="<%= student.s_gender %>" readonly="true" class="form-control" value="<%= student.s_id %>" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+            </div>
+            <button class="btn btn-block btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+<%- include("partials/footer") %>

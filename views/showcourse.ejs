@@ -1,0 +1,60 @@
+<%- include("partials/nav", {user: user}) %>
+<div class="row mt-5">
+    <div class="col-md-6 m-auto">
+        <h1 class="text-center mb-3">COURSES</h1>
+    </div>
+</div>
+</div>
+<% if(user.u_role=="admin"){%>
+<form action="/course/add" method="GET">
+    <div class="col-md-2 m-auto text-center">
+    <button class="btn btn-primary">Add Course</button>
+    </div>
+    <br>
+</form>
+<%}%>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">C_ID</th>
+        <th scope="col">Course Name</th>
+        <th scope="col">Course Credits</th>
+        <% if(user.u_role!=="teacher"){ %>
+        <th scope="col">Department</th>
+        <th scope="col">Faculty</th>
+        <%}if(user.u_role=="student"){%>
+        <th scope="col">Select</th>
+        <th scope="col">Unselect</th>
+        <%}%>
+    </tr>
+    </thead>
+    <tbody>
+    <% for(let i=0; i<course.length; i++){ %>
+    <tr>
+        <td><%= course[i].c_id%></td>
+        <% if(user.u_role=="teacher"){%>
+        <td><a href="/teacher/show/<%= course[i].c_id%>"><%= course[i].c_name%></a></td>
+        <% }else if(user.u_role=="student" || user.u_role=="admin"){%>
+        <td><a href="/course/show/<%= course[i].c_id%>"><%= course[i].c_name%></a></td>
+        <%}%>
+        <td><%= course[i].c_credits %></td>
+        <% if(user.u_role!=="teacher"){ %>
+        <td><%= course[i].t_department%></td>
+        <td><%= course[i].t_name %></td>
+        <%}if(user.u_role=="student"){%>
+        <td>
+            <form action="/course/select/<%= course[i].c_id%>" method="POST">
+                <button class="btn btn-primary">Select</button>
+            </form>
+       </td>
+       <td>
+            <form action="/course/deselect/<%= course[i].c_id%>" method="POST">
+            <button class="btn btn-secondary">Unselect</button>
+            </form>
+        </td>
+        <%}%>
+    </tr>
+    <%}%>
+    </tbody>
+</table>
+<%- include("partials/footer") %>

@@ -1,0 +1,80 @@
+<%- include("partials/nav", {user: user}) %>
+<div class="row mt-5">
+    <div class="col-md-6 m-auto">
+      <div class="card card-body">
+        <h1 class="text-center mb-3">Create User</h1>
+            <form action="/register" method="POST">
+                <div class="btn-group btn-group-toggle form-group" data-toggle="buttons">
+                    <label class="btn btn-secondary active">
+                      <input type="radio" name="role" id="option1" value="student" checked required> Student
+                    </label>
+                    <label class="btn btn-secondary">
+                      <input type="radio" name="role" id="option2" value="teacher"> Teacher
+                    </label>
+                </div>
+                <div class="input-group form-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">First and Last name</span>
+                    </div>
+                    <input type="text" name="FirstName" aria-label="First name" class="form-control">
+                    <input type="text" name="LastName" aria-label="Last name" class="form-control">
+                </div>
+                <div class="input-group mb-3 form-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">E-Mail Address:</span>
+                    </div>
+                    <input type="email" name="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+                </div>
+                <div class="input-group mb-3 form-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Password:</span>
+                    </div>
+                    <input type="password" name="password" pattern=".{8,}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" oninvalid="this.setCustomValidity('Password has to be min 8 characters')"
+                    oninput="this.setCustomValidity('')"  required>
+                </div>
+                <div class="btn-group btn-group-toggle form-group" data-toggle="buttons">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Gender</span>
+                    </div>
+                    <label class="btn btn-secondary active">
+                      <input type="radio" name="gender" id="option1" value="Male" checked required> Male
+                    </label>
+                    <label class="btn btn-secondary">
+                      <input type="radio" name="gender" id="option2" value="Female"> Female
+                    </label>
+                </div>
+                <div class="input-group mb-3 form-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Department:</span>
+                    </div>
+                    <input type="text" name="department" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+                </div>
+                <script>
+                $(':radio[id=option1]').change(function() {
+                    $(".teacher").removeClass("none");
+                  });
+                  $(':radio[id=option2]').change(function() {
+                    $(".teacher").addClass("none");
+                  });
+                </script>
+                <div class="teacher">
+                <div class="input-group mb-3 form-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Designation:</span>
+                    </div>
+                    <input type="text" name="designation" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div>
+                </div>
+                <div class="input-group mb-3 form-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Age:</span>
+                    </div>
+                    <input type="number" name="age" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Create User</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include("partials/footer") %>

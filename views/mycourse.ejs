@@ -1,0 +1,104 @@
+<%- include("partials/nav", {user: user}) %>
+<div class="row mt-5">
+    <div class="col-md-6 m-auto">
+        <h1 class="text-center mb-3">My Courses</h1>
+    </div>
+</div>
+</div>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">C_ID</th>
+        <th scope="col">Course Name</th>
+        <th scope="col">Course Credits</th>
+        <th scope="col">Lab</th>
+        <th scope="col">Internal</th>
+        <th scope="col">Mid Sem</th>
+        <th scope="col">End Sem</th>
+        <th scope="col">Total</th>
+        <th scope="col">Grade</th>
+        <th scope="col">Get Marks</th>
+    </tr>
+    </thead>
+    <tbody>    
+    <% let tc=0, c=0, num=0 %>
+    <% for(let i=0; i<course.length; i++){ %>
+    <tr>
+        <% tc+=course[i].c_credits %>
+        <td><%= course[i].c_id%></td>
+        <td><a href="/course/show/<%= course[i].c_id%>"><%= course[i].c_name%></a></td>
+        <td><h5><%= course[i].c_credits %></h5></td>
+        <% if(course[i].show==1){%>
+        <td><h5><%= course[i].lab %></h5></td>
+        <td><h5><%= course[i].internal %></h5></td>
+        <td><h5><%= course[i].midsem %></h5></td>
+        <td><h5><%= course[i].endsem %></h5></td>
+        <%}else{%>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        <% }%>
+        <% let total=-1%>
+        <% if(course[i].lab!=null && course[i].internal!=null && course[i].midsem!=null && course[i].endsem!=null){ %>
+            <% c+=course[i].c_credits %>
+            <% total=course[i].lab+course[i].internal+course[i].midsem+course[i].endsem %>
+            <% if(course[i].show==1){%>
+        <td><h5> <%= total%></h5></td>
+            <%}else{%>
+                <td></td>
+                <%}%>
+        <% let gr=0, g %>
+        <%if (total>=91){%>
+            <% gr=10 %>
+            <% g='O' %>
+        <%}else if(total>=82 && total<91){%>
+           <% gr=9 %>
+           <% g= 'A+' %>
+        <%}else if(total>=73 && total<82){%>
+            <% gr=8 %>
+            <% g='A' %>
+        <%}else if(total>=64 && total<73){%>
+            <% gr=7 %>
+            <% g= 'B+' %>
+        <%}else if(total>=55 && total<64){%>
+            <% gr=6 %>
+            <% g= 'B' %>
+        <%}else if(total>=46 && total<55){%>
+            <% gr=5 %>
+            <% g= 'C' %>
+        <%}else if(total>=35 && total<46){%>
+            <% gr=4 %>
+            <% g= 'P' %>
+        <%}else{%>
+            <% gr=0%>
+            <% g='F'%>
+        <%}%>
+        <% num+=(course[i].c_credits*gr) %>
+        <td><h5><%=g%></h5></td>
+        <%}else{%>
+        <td></td>
+        <td></td>
+        <%}%>
+        <%if(course[i].request==false && total!==-1){%>
+        <td>
+            <div>
+                <form action="/course/request/<%= course[i].c_id %>/<%= user.s_id %>" method="POST" >
+                    <button class="btn btn-primary">Request for Marks</button>
+                </form>
+            </div>
+        </td>
+        <%}else{%>
+            <td></td>
+        <%}%>
+    </tr>
+    <%}%>
+    </tbody>
+</table>
+<% if(c==tc && c!=0){%>
+<div class="col-md-3 m-auto card card-body">
+    <h5>Total Credits: <%=tc%></h5>
+    <h5>SGPA:          <%= (num/tc).toFixed(3) %></h5>
+</div>
+<%}%>
+<%- include("partials/footer") %>

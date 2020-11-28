@@ -1,0 +1,16 @@
+<%- include("partials/nav", {user: user}) %>
+<div class="row mt-5">
+    <div class="col-md-6 m-auto">
+        <div class="card card-body">
+            <h2 class="text-center mb-3"><%= course.c_name%></h2>
+            <div><h5>Number of Credits <%= course.c_credits%></h5></div>
+            <div><h5>Department: <%= course.t_department%></h5></div>
+            <div><h5>Faculty: <%= course.t_name%></h5></div>
+            <%if (user.u_role=="student"){%>
+            <button class="btn btn-primary">Select</button>
+            <button class="btn btn-secondary">Unselect</button> 
+            <%}%>
+        </div>
+    </div>
+</div>
+<%- include("partials/footer") %>

@@ -1,0 +1,87 @@
+<%- include("partials/nav", {user: user}) %>
+<div class="row mt-5">
+    <div class="col-md-6 m-auto">
+        <h1 class="text-center mb-3"><%= course.c_name%></h1>
+    </div>
+</div>
+</div>
+<div class="col-md-2 m-auto card-body text-center">
+    <a href="/teacher/edit/<%= course.c_id %>">
+        <button class="btn btn-primary">Edit Marks</button>
+    </a>    
+</div>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Roll</th>
+        <th scope="col">Student Name</th>
+        <th scope="col">Lab Marks</th>
+        <th scope="col">Internal Marks</th>
+        <th scope="col">Mid Sem Marks</th>
+        <th scope="col">End Sem Marks</th>
+        <th scope="col">Total</th>
+        <th scope="col">Grade</th>
+        <th scope="col">Allow</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% for(let i=0; i<student.length; i++){ %>
+    <tr>
+        <td><%= student[i].s_id%></td>
+        <td><%= student[i].s_name%></td>
+        <td><input class="form-control" readonly="true" type="number" style="width:120px" name="lab" value="<%= student[i].lab %>"></td>
+        <td><input class="form-control" readonly="true" type="number" style="width:120px" name="internal" value="<%= student[i].internal %>"></td>
+        <td><input class="form-control" readonly="true" type="number" style="width:120px" name="mid" value="<%= student[i].midsem %>"></td>
+        <td><input class="form-control" readonly="true" type="number" style="width:120px" name="end" value="<%= student[i].endsem %>"></td>
+            <% if(student[i].lab!=null && student[i].internal!=null && student[i].midsem!=null && student[i].endsem!=null){ %>
+                <% let total=student[i].lab+student[i].internal+student[i].midsem+student[i].endsem %>
+            <% let gr=0, g %>
+            <%if (total>=91){%>
+                <% gr=10 %>
+                <% g='O' %>
+            <%}else if(total>=82 && total<91){%>
+               <% gr=9 %>
+               <% g= 'A+' %>
+            <%}else if(total>=73 && total<82){%>
+                <% gr=8 %>
+                <% g='A' %>
+            <%}else if(total>=64 && total<73){%>
+                <% gr=7 %>
+                <% g= 'B+' %>
+            <%}else if(total>=55 && total<64){%>
+                <% gr=6 %>
+                <% g= 'B' %>
+            <%}else if(total>=46 && total<55){%>
+                <% gr=5 %>
+                <% g= 'C' %>
+            <%}else if(total>=35 && total<46){%>
+                <% gr=4 %>
+                <% g= 'P' %>
+            <%}else{%>
+                <% gr=0%>
+                <% g='F'%>
+            <%}%>
+        <td>
+            <div class="input-group mb-3 form-group" >
+                <input type="text" class="form-control" style="width:80px" name="" value="<%= total%>" readonly="true" aria-label="Total Marks">
+                <div class="input-group-append">
+                    <span class="input-group-text">/100</span>
+                </div>
+            </div>
+        </td>
+        <td>
+            <h5><%= g %></h5>
+        </td>
+        <% if(student[i].request==true && student[i].show==false){ %>
+        <td>
+            <form action="/course/allow/<%= course.c_id %>/<%= student[i].s_id %>" method="POST">
+                <button class="btn btn-primary">Allow</button>
+            </form>
+        </td>
+        <%}%>
+        <%}%>
+    </tr>
+    <%}%>
+    </tbody>
+</table>
+<%- include("partials/footer") %>

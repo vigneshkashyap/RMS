@@ -1,0 +1,10 @@
+<%- include("partials/nav", {user: user}) %>
+    <h1 class="mt-4">Dashboard</h1>
+    <% if(user.u_role=="teacher"){%>
+        <p class="lead mb-3">Welcome, <%=user.t_name%></p>
+    <%}else if(user.u_role=="student"){%>
+        <p class="lead mb-3">Welcome, <%=user.s_name%></p>
+    <%}else{%>
+        <p class="lead mb-3">Welcome, Admin</p>
+    <%}%>
+<%- include("partials/footer") %>

@@ -1,0 +1,36 @@
+<%- include("partials/nav", {user: user})%>
+<div class="row mt-5">
+    <div class="col-md-6 m-auto">
+        <div class="card card-body">
+            <h1 class="text-center mb-3">Add Course</h1>
+            <form action="/course/add" method="POST">
+                <div class="input-group mb-3 form-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Course ID</span>
+                    </div>
+                    <input type="text" name="c_id" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+                </div>
+                <div class="input-group mb-3 form-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Faculty ID</span>
+                    </div>
+                    <input type="text" name="t_id" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+                </div>
+                <div class="input-group mb-3 form-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Course Name</span>
+                    </div>
+                    <input type="text" name="name" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+                </div>
+                <div class="input-group mb-3 form-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">No. of Credits</span>
+                    </div>
+                    <input type="number" name="credits" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+                </div>
+                <button class="btn btn-primary btn-block">Add</button>
+            </form>
+        </div>
+    </div>
+</div>
+<%- include("partials/footer")%>
